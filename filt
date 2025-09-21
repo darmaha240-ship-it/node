@@ -1,0 +1,10 @@
+TWILIO_ACCOUNT_SID=...
+TWILIO_AUTH_TOKEN=...
+TWILIO_PHONE_NUMBER=+971504372415
+LOGS_USER=admin
+LOGS_PASS=supersecret123
+EMAIL_HOST=smtp.gmail.com
+EMAIL_PORT=587
+EMAIL_USER=yourgmail@gmail.com
+EMAIL_PASS=your_app_password
+NOTIFY_EMAIL=darmaha240@gmail.com
