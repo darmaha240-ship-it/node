@@ -1,0 +1,26 @@
+sms-forwarder/
+ ├── app.py
+ ├── requirements.txt
+ ├── .gitignore
+ ├── Procfile        (for Heroku only)
+ ├── logs.db         (ignored, not pushed)
+ ├── .env            (ignored, not pushed)
+ └── templates/
+     └── logs.html
+.env
+logs.db
+__pycache__/
+*.pyc
+flask
+twilio
+python-dotenv
+flask-basicauth
+flask-socketio
+eventlet
+web: gunicorn app:app --worker-class eventlet -w 1 -b 0.0.0.0:$PORT
+git init
+git add .
+git commit -m "Initial commit - SMS Forwarder"
+git branch -M main
+git remote add origin https://github.com/YOUR_USERNAME/sms-forwarder.git
+git push -u origin main
