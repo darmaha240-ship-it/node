@@ -1,0 +1,38 @@
+const express = require("express");
+const bodyParser = require("body-parser");
+const twilio = require("twilio");
+
+const app = express();
+app.use(bodyParser.urlencoded({ extended: false }));
+
+// Twilio credentials
+const accountSid = "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXX"; // Your Account SID
+const authToken = "your_auth_token";
+const client = twilio(accountSid, authToken);
+
+// Destination number
+const FORWARD_TO = "+971528731912";
+
+// Webhook endpoint (Twilio will call this on incoming SMS)
+app.post("/sms", async (req, res) => {
+  const from = req.body.From;
+  const body = req.body.Body;
+
+  try {
+    await client.messages.create({
+      body: `From: ${from}\n${body}`,
+      from: req.body.To,  // Twilio number that received the SMS
+      to: FORWARD_TO
+    });
+
+    res.type("text/xml");
+    res.send("<Response></Response>"); // Respond with empty TwiML
+  } catch (err) {
+    console.error("Error forwarding SMS:", err);
+    res.status(500).send("Error forwarding SMS");
+  }
+});
+
+// Start server
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`SMS Forwarder running on port ${PORT}`));
